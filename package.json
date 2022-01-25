@@ -1,0 +1,57 @@
+{
+  "name": "degenerate-bulls",
+  "version": "0.0.1",
+  "description": "NFTS that unlock trading strategies.",
+  "email": "email@example.com",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "webpack-dev-server --config ./webpack.config.js --mode development --progress --colors --port 3000",
+    "build": "webpack",
+    "deploy": "aws s3 cp ./dist/bundle.js s3://degenerate-bulls-web3/v3/ --acl public-read",
+    "bd": "yarn build && yarn deploy",
+    "format": "prettier --write \"./src/**/*.{js,jsx,json}\""
+  },
+  "keywords": [],
+  "author": "Nigam Saini",
+  "license": "MIT",
+  "devDependencies": {
+    "@babel/core": "^7.7.4",
+    "@babel/preset-env": "^7.7.4",
+    "@babel/preset-react": "^7.7.4",
+    "@openzeppelin/contracts-ethereum-package": "^2.4.0",
+    "@openzeppelin/upgrades": "^2.6.0",
+    "babel-loader": "^8.0.6",
+    "eslint": "^6.1.0",
+    "eslint-config-airbnb": "^18.0.1",
+    "eslint-config-prettier": "^6.7.0",
+    "eslint-plugin-import": "^2.18.2",
+    "eslint-plugin-jsx-a11y": "^6.2.3",
+    "eslint-plugin-prettier": "^3.1.1",
+    "eslint-plugin-react": "^7.17.0",
+    "eslint-plugin-react-hooks": "^1.7.0",
+    "husky": "^3.1.0",
+    "lint-staged": "^9.5.0",
+    "prettier": "1.19.1",
+    "webpack": "^4.41.2",
+    "webpack-cli": "^3.3.10",
+    "webpack-dev-server": "^3.9.0"
+  },
+  "dependencies": {
+    "@openzeppelin/contracts": "^2.4.0",
+    "@openzeppelin/network": "^0.2.10",
+    "core-js": "^3.4.4",
+    "jquery": "^3.4.1",
+    "react": "^16.12.0",
+    "react-dom": "^16.12.0",
+    "react-router-dom": "^5.1.2",
+    "regenerator-runtime": "^0.13.3",
+    "uuid": "^3.3.3",
+    "web3": "^1.2.0"
+  },
+  "husky": {
+    "hooks": {
+      "pre-commit": "npm run format"
+    }
+  }
+}
