@@ -11,7 +11,7 @@ import {
 } from './utils/tokenFunctions'
 import { covalentServices } from './utils/covalentServices'
 
-let contractAddress = '0xd8cdb4b17a741dc7c6a57a650974cd2eba544ff7' //Configured for testing 
+let contractAddress = '0xd8cdb4b17a741dc7c6a57a650974cd2eba544ff7' //Configured for testing
 
 function ERC1155Container(props) {
   const { injected, request, index } = props
@@ -37,31 +37,35 @@ function ERC1155Container(props) {
         tokenBalance: 0,
       })
 
-      await covalentServices.fetchTokenVault(accounts[0]).then( async (walletItems) => {
-        const nftArray = walletItems.items.filter(item => item.contract_address === contractAddress);
-        
-        if (nftArray.length > 0) {
-          const name = getTokenName(nftArray);
-          const tokenMetadata = await getTokenMetadata(nftArray)
-          const nftImage = await getNftImage(nftArray)
-          const tokenBalance = getBalance(nftArray)
+      await covalentServices
+        .fetchTokenVault(accounts[0])
+        .then(async walletItems => {
+          const nftArray = walletItems.items.filter(
+            item => item.contract_address === contractAddress,
+          )
 
-          setToken({
-            name,
-            nftImage: String(nftImage),
-            tokenMetadata: JSON.stringify(tokenMetadata),
-            tokenBalance,
-          })
-        }
-        else {
-          setToken({
-            name: 'NFT not found!!!',
-            nftImage: 'https://cdn.iconscout.com/icon/premium/png-256-thumb/not-found-2061566-1738842.png',
-            tokenMetadata: '{}',
-            tokenBalance: 0,
-          })
-        }
-      });
+          if (nftArray.length > 0) {
+            const name = getTokenName(nftArray)
+            const tokenMetadata = await getTokenMetadata(nftArray)
+            const nftImage = await getNftImage(nftArray)
+            const tokenBalance = getBalance(nftArray)
+
+            setToken({
+              name,
+              nftImage: String(nftImage),
+              tokenMetadata: JSON.stringify(tokenMetadata),
+              tokenBalance,
+            })
+          } else {
+            setToken({
+              name: 'NFT not found!!!',
+              nftImage:
+                'https://cdn.iconscout.com/icon/premium/png-256-thumb/not-found-2061566-1738842.png',
+              tokenMetadata: '{}',
+              tokenBalance: 0,
+            })
+          }
+        })
     }
 
     if (connected) {

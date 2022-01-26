@@ -14,9 +14,7 @@ class TokenBalance extends React.Component {
 
   render() {
     return ReactDOM.createPortal(
-      <Fragment>
-        {this.props.balance.toString()}
-      </Fragment>,
+      <Fragment>{this.props.balance.toString()}</Fragment>,
       document.getElementById(this.props.domElement.id),
     )
   }

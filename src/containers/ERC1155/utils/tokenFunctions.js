@@ -5,9 +5,9 @@ const flashTxBar = toggle => {
   bar.style.visibility = toggle ? 'visible' : 'hidden'
 }
 
-const getBalance = (nftArray) => {
+const getBalance = nftArray => {
   try {
-    let balance = nftArray[0].nft_data.length;
+    let balance = nftArray[0].nft_data.length
 
     return balance
   } catch (error) {
@@ -15,36 +15,35 @@ const getBalance = (nftArray) => {
   }
 }
 
-const getTokenName = (nftArray) => {
+const getTokenName = nftArray => {
   try {
-    let name = nftArray[0].contract_name;
+    let name = nftArray[0].contract_name
     return name
   } catch (error) {
     console.log('Error in getTokenName', error)
   }
 }
 
-const getNftImage = async (nftArray) => {
+const getNftImage = async nftArray => {
   try {
-    const tokenImage = covalentServices.fetchImage(nftArray[0].nft_data[0].token_id);
-    return tokenImage;
+    const tokenImage = covalentServices.fetchImage(
+      nftArray[0].nft_data[0].token_id,
+    )
+    return tokenImage
   } catch (error) {
     console.log('Error in getNftImage', error)
   }
 }
 
-const getTokenMetadata = async (nftArray) => {
+const getTokenMetadata = async nftArray => {
   try {
-    const tokenMetadata = await covalentServices.fetchMetadata(nftArray[0].nft_data[0].token_id);
-    return tokenMetadata;
+    const tokenMetadata = await covalentServices.fetchMetadata(
+      nftArray[0].nft_data[0].token_id,
+    )
+    return tokenMetadata
   } catch (error) {
     console.log('Error in getTokenMetadata', error)
   }
 }
 
-export {
-  getBalance,
-  getTokenName,
-  getNftImage,
-  getTokenMetadata,
-}
+export { getBalance, getTokenName, getNftImage, getTokenMetadata }
