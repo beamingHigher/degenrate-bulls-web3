@@ -16,7 +16,7 @@ class NftImage extends React.Component {
     return ReactDOM.createPortal(
       <Fragment>
         <div>
-          <img src={this.props.nftImage} alt="NFT image" />
+          <img src={this.props.nftImage} style={ { height: "100px", width: "100px" }} alt="NFT image" />
         </div>
       </Fragment>,
       document.getElementById(this.props.domElement.id),

@@ -13,7 +13,8 @@ class Web3EnableButton extends React.Component {
   }
 
   async web3Enable() {
-    await this.props.injected.requestAuth()
+    window.ethereum ? await this.props.injected.requestAuth() : await window.web3.enable()
+    // console.log('Injected web3:', this.props.injected);  // Added for debug at client's end.
   }
 
   render() {

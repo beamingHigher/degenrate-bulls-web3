@@ -32,7 +32,7 @@ function ERC1155Container(props) {
     const loadTokenVault = async () => {
       setToken({
         name: 'Getting details...',
-        nftImage: 'Getting details...',
+        nftImage: 'https://img.pikbest.com/png-images/20190918/cartoon-snail-loading-loading-gif-animation_2734139.png',
         tokenMetadata: 'Getting details...',
         tokenBalance: 0,
       })
@@ -60,7 +60,7 @@ function ERC1155Container(props) {
             setToken({
               name: 'NFT not found!!!',
               nftImage:
-                'https://cdn.iconscout.com/icon/premium/png-256-thumb/not-found-2061566-1738842.png',
+                'https://cdn-icons-png.flaticon.com/128/2748/2748558.png',
               tokenMetadata: '{}',
               tokenBalance: 0,
             })
