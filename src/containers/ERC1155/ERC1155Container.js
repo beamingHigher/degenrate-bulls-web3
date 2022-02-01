@@ -32,7 +32,8 @@ function ERC1155Container(props) {
     const loadTokenVault = async () => {
       setToken({
         name: 'Getting details...',
-        nftImage: 'https://img.pikbest.com/png-images/20190918/cartoon-snail-loading-loading-gif-animation_2734139.png',
+        nftImage:
+          'https://img.pikbest.com/png-images/20190918/cartoon-snail-loading-loading-gif-animation_2734139.png',
         tokenMetadata: 'Getting details...',
         tokenBalance: 0,
       })
