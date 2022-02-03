@@ -48,7 +48,9 @@ const getTokenMetadata = async nftArray => {
 
 const getSkinTrait = nftMetadata => {
   try {
-    let skin = nftMetadata.attributes.filter(trait => trait.trait_type === 'Skin')[0].value;
+    let skin = nftMetadata.attributes.filter(
+      trait => trait.trait_type === 'Skin',
+    )[0].value
 
     return skin
   } catch (error) {
@@ -57,9 +59,11 @@ const getSkinTrait = nftMetadata => {
 }
 
 const getBackgroundTrait = nftMetadata => {
-  console.log('metadata,', nftMetadata);
+  console.log('metadata,', nftMetadata)
   try {
-    let background = nftMetadata.attributes.filter(trait => trait.trait_type === 'background')[0].value;
+    let background = nftMetadata.attributes.filter(
+      trait => trait.trait_type === 'background',
+    )[0].value
 
     return background
   } catch (error) {
@@ -69,7 +73,9 @@ const getBackgroundTrait = nftMetadata => {
 
 const getEyesTrait = nftMetadata => {
   try {
-    let eyes = nftMetadata.attributes.filter(trait => trait.trait_type === 'Eyes')[0].value;
+    let eyes = nftMetadata.attributes.filter(
+      trait => trait.trait_type === 'Eyes',
+    )[0].value
 
     return eyes
   } catch (error) {
@@ -77,4 +83,12 @@ const getEyesTrait = nftMetadata => {
   }
 }
 
-export { getBalance, getTokenName, getNftImage, getTokenMetadata, getSkinTrait,  getBackgroundTrait, getEyesTrait}
+export {
+  getBalance,
+  getTokenName,
+  getNftImage,
+  getTokenMetadata,
+  getSkinTrait,
+  getBackgroundTrait,
+  getEyesTrait,
+}

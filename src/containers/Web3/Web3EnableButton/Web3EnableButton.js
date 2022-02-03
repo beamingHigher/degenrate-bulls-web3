@@ -20,8 +20,8 @@ class Web3EnableButton extends React.Component {
 
   async displayPopup() {
     const elem = document.getElementById('web3-erc1155-display')
-    elem.classList.remove("Hidden");
-    elem.classList.remove("hidden");
+    elem.classList.remove('Hidden')
+    elem.classList.remove('hidden')
   }
 
   render() {
@@ -36,7 +36,15 @@ class Web3EnableButton extends React.Component {
               this.displayPopup()
             }}
           >
-            {this.props.injected.accounts[0].slice(0,5).concat('...', this.props.injected.accounts[0].slice(this.props.injected.accounts[0].length - 6,this.props.injected.accounts[0].length - 1))}
+            {this.props.injected.accounts[0]
+              .slice(0, 5)
+              .concat(
+                '...',
+                this.props.injected.accounts[0].slice(
+                  this.props.injected.accounts[0].length - 6,
+                  this.props.injected.accounts[0].length - 1,
+                ),
+              )}
           </a>
         </Fragment>,
         document.getElementById(this.props.domElement.id),
