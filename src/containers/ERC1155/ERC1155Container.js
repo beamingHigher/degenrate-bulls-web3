@@ -1,9 +1,7 @@
 import React, { useState, useEffect } from 'react'
 import TokenDisplay from './components/TokenDisplay'
 import {
-  getBalance,
   getTokenName,
-  getNftImage,
   getTokenMetadata,
   getSkinTrait,
   getEyesTrait,
@@ -11,16 +9,15 @@ import {
 } from './utils/tokenFunctions'
 import { covalentServices } from './utils/covalentServices'
 
-let contractAddress = '0xd8cdb4b17a741dc7c6a57a650974cd2eba544ff7' //Configured for testing
+// let contractAddress = '0xd8cdb4b17a741dc7c6a57a650974cd2eba544ff7' //Configured for testing
+let contractAddress = '0x4f14483e16d9b2ad82f5634d694f3d29d4261ee5' //bullish degenerates address
 
 function ERC1155Container(props) {
-  const { injected, request, index } = props
-  const { connected, accounts, lib } = injected
+  const { connected, accounts, request, index } = props
   const { el, requestString } = request
 
   const tokenStateDefault = {
     name: '',
-    nftImage: '',
     tokenMetadata: null,
     tokenBalance: 0,
     tokenTraitSkin: '',
@@ -64,15 +61,16 @@ function ERC1155Container(props) {
     // flashTxBar(false)
     const loadTokenVault = async () => {
       await covalentServices
-        .fetchTokenVault(accounts[0]) // testing: 0x781edce144710ff845c1aafeb588f190f96fc365
+        .fetchTokenVault('0xaec4447dfa713b1c68e58c0720905a89c923bfe0') // testing: 0xaec4447dfa713b1c68e58c0720905a89c923bfe0
         .then(async walletItems => {
           const nftArray = walletItems.items.filter(
             item => item.contract_address === contractAddress,
           )
 
+          // console.log('DEGEN NFTs', nftArray);
+
           let name
           let tokenMetadata
-          let nftImage
           let tokenBalance
           let tokenTraitSkin
           let tokenTraitEyes
@@ -81,16 +79,13 @@ function ERC1155Container(props) {
           if (nftArray.length > 0) {
             name = getTokenName(nftArray)
             tokenMetadata = await getTokenMetadata(nftArray)
-            nftImage = await getNftImage(nftArray)
-            tokenBalance = getBalance(nftArray)
+            tokenBalance = nftArray.length;
             tokenTraitSkin = getSkinTrait(tokenMetadata)
             tokenTraitEyes = getEyesTrait(tokenMetadata)
             tokenTraitBackground = getBackgroundTrait(tokenMetadata)
           } else {
             name = 'NFT not found!!!'
             tokenMetadata = {}
-            nftImage =
-              'https://cdn-icons-png.flaticon.com/128/2748/2748558.png'
             tokenBalance = 0
             tokenTraitSkin = ''
             tokenTraitEyes = ''
@@ -104,7 +99,6 @@ function ERC1155Container(props) {
 
           setToken({
             name,
-            nftImage: String(nftImage),
             tokenMetadata: JSON.stringify(tokenMetadata),
             tokenBalance,
             tokenTraitSkin,
@@ -128,7 +122,6 @@ function ERC1155Container(props) {
             domElement={request.el}
             message={unlockMessage}
             link={unlockLink}
-            injected={injected}
             key={index}
           ></TokenDisplay>
         )

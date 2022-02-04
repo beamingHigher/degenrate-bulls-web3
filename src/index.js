@@ -1,16 +1,15 @@
-import React, { Fragment } from 'react'
+import React, { useState, Fragment } from 'react'
 import ReactDOM from 'react-dom'
 import $ from 'jquery'
 import 'core-js/stable'
 import 'regenerator-runtime/runtime'
 
-import { useWeb3Injected } from '@openzeppelin/network/react'
 import Web3EnableButton from './containers/Web3/Web3EnableButton/Web3EnableButton'
 import Web3ERC1155Container from './containers/ERC1155/ERC1155Container'
 
 function App() {
-  const injected = useWeb3Injected()
-  const { connected, accounts } = injected
+  const [connected, setConnected] = useState(false);
+  const [accounts, setAccounts] = useState([]);
   const elements = $('[id^="web3-"]')
 
   const reducer = request => {
@@ -19,7 +18,8 @@ function App() {
         if (connected && accounts.length > 0) {
           return (
             <Web3ERC1155Container
-              injected={injected}
+              connected={connected}
+              accounts={accounts}
               key={request.index}
               domElement={request.el}
               request={request}
@@ -31,8 +31,23 @@ function App() {
       case 'enableButton':
         return (
           <Web3EnableButton
+            connected={connected}
+            accounts={accounts}
+            setConnected={setConnected}
+            setAccounts={setAccounts}
             key={request.index}
-            injected={injected}
+            domElement={request.el}
+          ></Web3EnableButton>
+        )
+        break
+      case 'enableButtonM':
+        return (
+          <Web3EnableButton
+            connected={connected}
+            accounts={accounts}
+            setConnected={setConnected}
+            setAccounts={setAccounts}
+            key={request.index}
             domElement={request.el}
           ></Web3EnableButton>
         )

@@ -13,7 +13,21 @@ class Web3EnableButton extends React.Component {
   }
 
   async web3Enable() {
-    await this.props.injected.requestAuth().catch(error => {
+    await window.ethereum.request({ method: 'eth_requestAccounts' }).then((accounts) => {
+      this.props.setAccounts(accounts);
+      this.props.setConnected(true);
+
+      window.ethereum.on("accountsChanged", (accounts) => {
+        this.props.setAccounts(accounts);
+        this.props.setConnected(true);
+      });
+
+      window.ethereum.on("disconnect", (code, reason) => {
+        console.log(code, reason);
+        this.props.setAccounts([]);
+        this.props.setConnected(false);
+      });
+    }).catch(error => {
       console.log('Error', error.message)
     })
   }
@@ -26,8 +40,8 @@ class Web3EnableButton extends React.Component {
 
   render() {
     if (
-      this.props.injected.connected &&
-      this.props.injected.accounts.length > 0
+      this.props.connected &&
+      this.props.accounts.length > 0
     ) {
       return ReactDOM.createPortal(
         <Fragment>
@@ -36,13 +50,13 @@ class Web3EnableButton extends React.Component {
               this.displayPopup()
             }}
           >
-            {this.props.injected.accounts[0]
+            {this.props.accounts[0]
               .slice(0, 5)
               .concat(
                 '...',
-                this.props.injected.accounts[0].slice(
-                  this.props.injected.accounts[0].length - 6,
-                  this.props.injected.accounts[0].length - 1,
+                this.props.accounts[0].slice(
+                  this.props.accounts[0].length - 5,
+                  this.props.accounts[0].length,
                 ),
               )}
           </a>
