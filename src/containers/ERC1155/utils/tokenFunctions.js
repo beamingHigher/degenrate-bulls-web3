@@ -26,7 +26,7 @@ const getTokenMetadata = async nftArray => {
 
 const getSkinTrait = nftMetadata => {
   try {
-    let skin;
+    let skin
     if (nftMetadata.attributes) {
       skin = nftMetadata.attributes.filter(
         trait => trait.trait_type === 'Skin',
@@ -41,7 +41,7 @@ const getSkinTrait = nftMetadata => {
 
 const getBackgroundTrait = nftMetadata => {
   try {
-    let background;
+    let background
     if (nftMetadata.attributes) {
       background = nftMetadata.attributes.filter(
         trait => trait.trait_type === 'background',
@@ -56,7 +56,7 @@ const getBackgroundTrait = nftMetadata => {
 
 const getEyesTrait = nftMetadata => {
   try {
-    let eyes;
+    let eyes
     if (nftMetadata.attributes) {
       eyes = nftMetadata.attributes.filter(
         trait => trait.trait_type === 'Eyes',

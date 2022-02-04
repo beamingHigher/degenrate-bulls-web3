@@ -79,7 +79,7 @@ function ERC1155Container(props) {
           if (nftArray.length > 0) {
             name = getTokenName(nftArray)
             tokenMetadata = await getTokenMetadata(nftArray)
-            tokenBalance = nftArray.length;
+            tokenBalance = nftArray.length
             tokenTraitSkin = getSkinTrait(tokenMetadata)
             tokenTraitEyes = getEyesTrait(tokenMetadata)
             tokenTraitBackground = getBackgroundTrait(tokenMetadata)

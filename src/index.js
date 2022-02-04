@@ -8,8 +8,8 @@ import Web3EnableButton from './containers/Web3/Web3EnableButton/Web3EnableButto
 import Web3ERC1155Container from './containers/ERC1155/ERC1155Container'
 
 function App() {
-  const [connected, setConnected] = useState(false);
-  const [accounts, setAccounts] = useState([]);
+  const [connected, setConnected] = useState(false)
+  const [accounts, setAccounts] = useState([])
   const elements = $('[id^="web3-"]')
 
   const reducer = request => {

@@ -13,23 +13,26 @@ class Web3EnableButton extends React.Component {
   }
 
   async web3Enable() {
-    await window.ethereum.request({ method: 'eth_requestAccounts' }).then((accounts) => {
-      this.props.setAccounts(accounts);
-      this.props.setConnected(true);
+    await window.ethereum
+      .request({ method: 'eth_requestAccounts' })
+      .then(accounts => {
+        this.props.setAccounts(accounts)
+        this.props.setConnected(true)
 
-      window.ethereum.on("accountsChanged", (accounts) => {
-        this.props.setAccounts(accounts);
-        this.props.setConnected(true);
-      });
+        window.ethereum.on('accountsChanged', accounts => {
+          this.props.setAccounts(accounts)
+          this.props.setConnected(true)
+        })
 
-      window.ethereum.on("disconnect", (code, reason) => {
-        console.log(code, reason);
-        this.props.setAccounts([]);
-        this.props.setConnected(false);
-      });
-    }).catch(error => {
-      console.log('Error', error.message)
-    })
+        window.ethereum.on('disconnect', (code, reason) => {
+          console.log(code, reason)
+          this.props.setAccounts([])
+          this.props.setConnected(false)
+        })
+      })
+      .catch(error => {
+        console.log('Error', error.message)
+      })
   }
 
   async displayPopup() {
@@ -39,10 +42,7 @@ class Web3EnableButton extends React.Component {
   }
 
   render() {
-    if (
-      this.props.connected &&
-      this.props.accounts.length > 0
-    ) {
+    if (this.props.connected && this.props.accounts.length > 0) {
       return ReactDOM.createPortal(
         <Fragment>
           <a
