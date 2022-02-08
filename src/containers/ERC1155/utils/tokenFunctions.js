@@ -50,8 +50,4 @@ const isFireBackground = nftMetadata => {
   }
 }
 
-export {
-  isShibaSkin,
-  isLazerEyes,
-  isFireBackground,
-}
+export { isShibaSkin, isLazerEyes, isFireBackground }

@@ -26,11 +26,7 @@ function ERC1155Container(props) {
   const [unlockMessage, setUnlockMessage] = useState('')
   const [unlockLink, setUnlockLink] = useState('#')
 
-  const setUnlocks = (
-    isSkinShiba,
-    isEyesLazer,
-    isBackgroundFire,
-  ) => {
+  const setUnlocks = (isSkinShiba, isEyesLazer, isBackgroundFire) => {
     if (isSkinShiba) {
       setUnlockMessage(
         'Claim Your Free Premium Discord Access! Be sure to message Market.Moves.Matt in the chat to set this up.',
@@ -72,14 +68,20 @@ function ERC1155Container(props) {
           let isBackgroundFire
 
           if (nftArray.length > 0) {
-            name = nftArray[0].contract_name;
-            tokenBalance = nftArray[0].balance;
-            tokenMetadata = nftArray[0].nft_data;
-            tokenMetadata.map((nftData) => {    
-              isSkinShiba = isSkinShiba ? true : isShibaSkin(nftData.external_data);
-              isEyesLazer = isEyesLazer ? true : isLazerEyes(nftData.external_data);
-              isBackgroundFire = isBackgroundFire ? true : isFireBackground(nftData.external_data);
-            });
+            name = nftArray[0].contract_name
+            tokenBalance = nftArray[0].balance
+            tokenMetadata = nftArray[0].nft_data
+            tokenMetadata.map(nftData => {
+              isSkinShiba = isSkinShiba
+                ? true
+                : isShibaSkin(nftData.external_data)
+              isEyesLazer = isEyesLazer
+                ? true
+                : isLazerEyes(nftData.external_data)
+              isBackgroundFire = isBackgroundFire
+                ? true
+                : isFireBackground(nftData.external_data)
+            })
           } else {
             name = 'NFT not found!!!'
             tokenMetadata = []
@@ -88,11 +90,7 @@ function ERC1155Container(props) {
             isEyesLazer = false
             isBackgroundFire = false
           }
-          setUnlocks(
-            isSkinShiba,
-            isEyesLazer,
-            isBackgroundFire,
-          )
+          setUnlocks(isSkinShiba, isEyesLazer, isBackgroundFire)
 
           setToken({
             name,
