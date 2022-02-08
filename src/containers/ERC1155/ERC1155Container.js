@@ -1,15 +1,12 @@
 import React, { useState, useEffect } from 'react'
 import TokenDisplay from './components/TokenDisplay'
 import {
-  getTokenName,
-  getTokenMetadata,
-  getSkinTrait,
-  getEyesTrait,
-  getBackgroundTrait,
+  isShibaSkin,
+  isLazerEyes,
+  isFireBackground,
 } from './utils/tokenFunctions'
 import { covalentServices } from './utils/covalentServices'
 
-// let contractAddress = '0xd8cdb4b17a741dc7c6a57a650974cd2eba544ff7' //Configured for testing
 let contractAddress = '0x4f14483e16d9b2ad82f5634d694f3d29d4261ee5' //bullish degenerates address
 
 function ERC1155Container(props) {
@@ -20,9 +17,9 @@ function ERC1155Container(props) {
     name: '',
     tokenMetadata: null,
     tokenBalance: 0,
-    tokenTraitSkin: '',
-    tokenTraitEyes: '',
-    tokenTraitBackground: '',
+    isSkinShiba: false,
+    isEyesLazer: false,
+    isBackgroundFire: false,
   }
 
   const [token, setToken] = useState(tokenStateDefault)
@@ -30,21 +27,21 @@ function ERC1155Container(props) {
   const [unlockLink, setUnlockLink] = useState('#')
 
   const setUnlocks = (
-    tokenTraitSkin,
-    tokenTraitEyes,
-    tokenTraitBackground,
+    isSkinShiba,
+    isEyesLazer,
+    isBackgroundFire,
   ) => {
-    if (tokenTraitSkin === 'SHIBA') {
+    if (isSkinShiba) {
       setUnlockMessage(
         'Claim Your Free Premium Discord Access! Be sure to message Market.Moves.Matt in the chat to set this up.',
       )
       setUnlockLink('https://discord.gg/SWZraNG')
-    } else if (tokenTraitEyes === 'LAZER') {
+    } else if (isEyesLazer) {
       setUnlockMessage(
         'Claim Your Free Flywheel Option Selling Course!',
       )
       // setUnlockLink('#');
-    } else if (tokenTraitBackground === 'brown') {
+    } else if (isBackgroundFire) {
       setUnlockMessage('Claim Your Free eBook Bundle!')
       // setUnlockLink('#');
     } else {
@@ -61,49 +58,49 @@ function ERC1155Container(props) {
     // flashTxBar(false)
     const loadTokenVault = async () => {
       await covalentServices
-        .fetchTokenVault('0xaec4447dfa713b1c68e58c0720905a89c923bfe0') // testing: 0xaec4447dfa713b1c68e58c0720905a89c923bfe0
+        .fetchTokenVault(accounts[0]) // testing:degenerate-bulls 0x5807873915b21162edd4ae472428f3ccc97b806a
         .then(async walletItems => {
           const nftArray = walletItems.items.filter(
             item => item.contract_address === contractAddress,
           )
 
-          // console.log('DEGEN NFTs', nftArray);
-
           let name
           let tokenMetadata
           let tokenBalance
-          let tokenTraitSkin
-          let tokenTraitEyes
-          let tokenTraitBackground
+          let isSkinShiba
+          let isEyesLazer
+          let isBackgroundFire
 
           if (nftArray.length > 0) {
-            name = getTokenName(nftArray)
-            tokenMetadata = await getTokenMetadata(nftArray)
-            tokenBalance = nftArray.length
-            tokenTraitSkin = getSkinTrait(tokenMetadata)
-            tokenTraitEyes = getEyesTrait(tokenMetadata)
-            tokenTraitBackground = getBackgroundTrait(tokenMetadata)
+            name = nftArray[0].contract_name;
+            tokenBalance = nftArray[0].balance;
+            tokenMetadata = nftArray[0].nft_data;
+            tokenMetadata.map((nftData) => {    
+              isSkinShiba = isSkinShiba ? true : isShibaSkin(nftData.external_data);
+              isEyesLazer = isEyesLazer ? true : isLazerEyes(nftData.external_data);
+              isBackgroundFire = isBackgroundFire ? true : isFireBackground(nftData.external_data);
+            });
           } else {
             name = 'NFT not found!!!'
-            tokenMetadata = {}
+            tokenMetadata = []
             tokenBalance = 0
-            tokenTraitSkin = ''
-            tokenTraitEyes = ''
-            tokenTraitBackground = ''
+            isSkinShiba = false
+            isEyesLazer = false
+            isBackgroundFire = false
           }
           setUnlocks(
-            tokenTraitSkin,
-            tokenTraitEyes,
-            tokenTraitBackground,
+            isSkinShiba,
+            isEyesLazer,
+            isBackgroundFire,
           )
 
           setToken({
             name,
-            tokenMetadata: JSON.stringify(tokenMetadata),
+            tokenMetadata,
             tokenBalance,
-            tokenTraitSkin,
-            tokenTraitEyes,
-            tokenTraitBackground,
+            isSkinShiba,
+            isEyesLazer,
+            isBackgroundFire,
           })
         })
     }

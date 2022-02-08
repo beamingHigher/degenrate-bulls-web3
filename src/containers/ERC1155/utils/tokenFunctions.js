@@ -5,26 +5,7 @@ const flashTxBar = toggle => {
   bar.style.visibility = toggle ? 'visible' : 'hidden'
 }
 
-const getTokenName = nftArray => {
-  try {
-    let name = nftArray[0].contract_name
-    return name
-  } catch (error) {
-    console.log('Error in getTokenName', error)
-  }
-}
-
-const getTokenMetadata = async nftArray => {
-  try {
-    const tokenMetadata = nftArray[0].nft_data[0].external_data
-
-    return tokenMetadata
-  } catch (error) {
-    console.log('Error in getTokenMetadata', error)
-  }
-}
-
-const getSkinTrait = nftMetadata => {
+const isShibaSkin = nftMetadata => {
   try {
     let skin
     if (nftMetadata.attributes) {
@@ -33,13 +14,28 @@ const getSkinTrait = nftMetadata => {
       )[0].value
     }
 
-    return skin
+    return skin === 'Shiba'
   } catch (error) {
     console.log('Error in Getting NFT skin', error.message)
   }
 }
 
-const getBackgroundTrait = nftMetadata => {
+const isLazerEyes = nftMetadata => {
+  try {
+    let eyes
+    if (nftMetadata.attributes) {
+      eyes = nftMetadata.attributes.filter(
+        trait => trait.trait_type === 'eyes',
+      )[0].value
+    }
+
+    return eyes === 'Lazer'
+  } catch (error) {
+    console.log('Error in Getting NFT skin', error.message)
+  }
+}
+
+const isFireBackground = nftMetadata => {
   try {
     let background
     if (nftMetadata.attributes) {
@@ -48,31 +44,14 @@ const getBackgroundTrait = nftMetadata => {
       )[0].value
     }
 
-    return background
+    return background === 'Body on Fire'
   } catch (error) {
     console.log('Error in Getting NFT background', error.message)
   }
 }
 
-const getEyesTrait = nftMetadata => {
-  try {
-    let eyes
-    if (nftMetadata.attributes) {
-      eyes = nftMetadata.attributes.filter(
-        trait => trait.trait_type === 'Eyes',
-      )[0].value
-    }
-
-    return eyes
-  } catch (error) {
-    console.log('Error in Getting NFT skin', error.message)
-  }
-}
-
 export {
-  getTokenName,
-  getTokenMetadata,
-  getSkinTrait,
-  getBackgroundTrait,
-  getEyesTrait,
+  isShibaSkin,
+  isLazerEyes,
+  isFireBackground,
 }

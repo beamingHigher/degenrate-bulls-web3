@@ -22,6 +22,18 @@ class TokenDisplay extends React.Component {
     this.props.domElement.classList.remove('hidden')
     return ReactDOM.createPortal(
       <Fragment>
+        {/* <div>
+          {this.props.message.toString()}
+        </div>
+          <a
+            href={this.props.link}
+            target="_blank"
+            style={{ color: 'inherit' }}
+          >
+            {this.props.link === '#'
+              ? 'Link Coming Soon!'
+              : this.props.link.toString()}
+          </a> */}
         <img
           src="https://uploads-ssl.webflow.com/61959cd789583069b45ea326/61fa8dd498a5d53d43a457d2_delete.png"
           loading="lazy"
