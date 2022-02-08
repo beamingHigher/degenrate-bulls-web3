@@ -1,4 +1,4 @@
-# Degenrate Bulls
+# Degenerate Bulls
 
 Or on each page, in the page settings (eventually this should be site wide) add in the `Inside <head> tag`
 this code: 
